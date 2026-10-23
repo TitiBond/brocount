@@ -1,0 +1,67 @@
+
+# =========================
+# Secrets et configurations locales
+# =========================
+.env
+.env.*
+!.env.example
+!.env.sample
+**/application-local.properties
+**/application-local.yml
+**/application-local.yaml
+**/application-dev-local.properties
+**/application-dev-local.yml
+**/application-dev-local.yaml
+**/secrets/
+**/*.pem
+**/*.key
+**/*.p12
+**/*.jks
+
+# =========================
+# Java / Spring Boot / Maven
+# =========================
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+**/hs_err_pid*
+**/replay_pid*
+
+# =========================
+# Angular / Node.js
+# =========================
+**/node_modules/
+**/dist/
+**/coverage/
+**/.angular/
+**/.nx/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/pnpm-debug.log*
+
+# =========================
+# IDE et éditeurs
+# =========================
+**/.idea/
+**/.vscode/*
+!**/.vscode/extensions.json
+!**/.vscode/settings.json
+!**/.vscode/launch.json
+!**/.vscode/tasks.json
+**/*.iml
+**/.project
+**/.classpath
+**/.settings/
+
+# =========================
+# Système d'exploitation
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Logs et fichiers temporaires
+# =========================
+**/*.log
+**/tmp/
+**/temp/

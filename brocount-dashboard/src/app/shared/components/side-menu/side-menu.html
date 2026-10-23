@@ -1,0 +1,17 @@
+<div class="h-full w-20 lg:w-3xs flex flex-col rounded-r-md bg-[#263443] p-3 gap-5">
+  <!-- TITLE -->
+  <div class="h-10 shrink-0 flex items-center justify-center">
+    <span class="hidden lg:block text-lime-400 font-semibold text-xl">
+      {{ menuOptions().title | titlecase }}
+    </span>
+    <img src="/brocount.svg" alt="Brocount" class="size-10" />
+  </div>
+
+  <hr class="border-white/20" />
+
+  <div class="flex flex-col gap-3">
+    @for (button of menuOptions().buttons; track button.title) {
+      <bc-side-menu-button [buttonOption]="button"></bc-side-menu-button>
+    }
+  </div>
+</div>

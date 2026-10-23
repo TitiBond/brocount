@@ -1,0 +1,25 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <g fill="#A3E635">
+    <!-- Dos du portefeuille -->
+    <path d="M92 155 326 94c17-4 31 8 31 25v48h-22v-45L114 177v35H92z"></path>
+
+    <!-- Corps du portefeuille -->
+    <path d="M92 177 350 147c18-2 31 11 31 29v180c0 20-13 33-32 36l-225 27c-19 2-32-11-32-30z"></path>
+
+    <!-- Fermoir -->
+    <path d="M327 224c0-17 12-29 29-29h53c16 0 27 11 27 27v45c0 16-11 27-27 27h-53c-17 0-29-12-29-29z"></path>
+  </g>
+
+  <!-- Deux personnes -->
+  <g fill="#0B1628">
+    <circle cx="174" cy="253" r="27"></circle>
+    <path d="M126 329c0-29 20-47 48-47s48 18 48 47v8H126z"></path>
+
+    <circle cx="241" cy="266" r="20"></circle>
+    <path d="M226 298c24-10 48 7 48 34v5h-36v-8c0-13-4-23-12-31z"></path>
+
+    <!-- Attache du portefeuille -->
+    <circle cx="383" cy="248" r="11"></circle>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<header class="w-full p-4 rounded-md bg-gray-900 flex justify-between items-center">
+  <div class="flex flex-col">
+    <span class="text-gray-50 text-xl">{{ headerOptions().title }}</span>
+    <span class="text-gray-400 text-sm">{{ headerOptions().subtitle }}</span>
+  </div>
+  <div class="flex gap-4">
+    @for (button of headerOptions().buttons; track $index) {
+      <bc-header-button [headerButtonOption]="button"></bc-header-button>
+    }
+  </div>
+</header>
