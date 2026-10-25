@@ -1,17 +1,25 @@
-<div class="h-full w-20 lg:w-3xs flex flex-col rounded-r-md bg-[#263443] p-3 gap-5">
-  <!-- TITLE -->
-  <div class="h-10 shrink-0 flex items-center justify-center">
-    <span class="hidden lg:block text-lime-400 font-semibold text-xl">
-      {{ menuOptions().title | titlecase }}
-    </span>
+<div class="h-full w-20 lg:w-3xs flex flex-col border-r border-gray-700 bg-gray-800">
+  <div class="flex h-20 items-center gap-3 border-b border-gray-700 px-6">
     <img src="/brocount.svg" alt="Brocount" class="size-10" />
+    <div class="hidden lg:block">
+      <div class="text-lg font-extrabold tracking-tight">{{ menuOptions().title | titlecase }}</div>
+      <div class="text-xs text-gray-400">Administration</div>
+    </div>
   </div>
 
-  <hr class="border-white/20" />
+  <nav class="flex-1 space-y-2 px-4 py-6">
+    <div class="px-3 pb-2 text-xs font-semibold uppercase tracking-widest text-gray-500">
+      Gestion
+    </div>
 
-  <div class="flex flex-col gap-3">
-    @for (button of menuOptions().buttons; track button.title) {
-      <bc-side-menu-button [buttonOption]="button"></bc-side-menu-button>
-    }
-  </div>
+    <div class="flex flex-col gap-3">
+      @for (button of menuOptions().buttons; track button.title) {
+        <bc-side-menu-button [buttonOption]="button"></bc-side-menu-button>
+      }
+    </div>
+    <div class="px-3 pb-2 pt-8 text-xs font-semibold uppercase tracking-widest text-gray-500">
+      Système
+    </div>
+    <bc-side-menu-button [buttonOption]="menuOptions().buttons[1]"></bc-side-menu-button>
+  </nav>
 </div>

@@ -1,12 +1,13 @@
 <button
   type="button"
   (click)="buttonOption().action()"
-  class="w-full flex justify-center lg:justify-normal items-center gap-3 rounded-md px-3 py-2 transition-colors cursor-pointer"
+  class="w-full flex justify-center lg:justify-normal items-center gap-3 rounded-xl px-3 py-3 transition-colors cursor-pointer"
   [class.bg-lime-400]="buttonOption().isActive()"
   [class.text-gray-900]="buttonOption().isActive()"
+  [class.font-semibold]="buttonOption().isActive()"
   [class.text-gray-300]="!buttonOption().isActive()"
   [class.hover:bg-gray-700]="!buttonOption().isActive()"
-  [class.hover:text-white]="!buttonOption().isActive()"
+  /* [class.hover:text-white]="!buttonOption().isActive()" */
 >
   <span class="material-icons-outlined">
     {{ buttonOption().icon }}
