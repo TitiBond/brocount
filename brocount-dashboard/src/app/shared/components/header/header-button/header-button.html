@@ -1,7 +1,11 @@
 <button
+  [title]="headerButtonOption().title"
   (click)="headerButtonOption().action()"
   type="button"
-  class="flex justify-center items-center rounded-lg bg-[#263443] p-2 text-gray-300 transition-colors duration-200 hover:bg-lime-400 hover:text-gray-900 cursor-pointer"
+  class="flex items-center gap-2 rounded-xl border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:bg-gray-800 cursor-pointer"
 >
-  <span class="material-icons-outlined text-[18px]!">{{ headerButtonOption().icon }}</span>
+  <span class="material-icons-outlined text-lg">{{ headerButtonOption().icon }}</span>
+  @if (!headerButtonOption().isButtonIcon) {
+    <span class="hidden md:inline">{{ headerButtonOption().title | titlecase }}</span>
+  }
 </button>

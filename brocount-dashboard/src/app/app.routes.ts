@@ -26,13 +26,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        title: 'Accueil',
         path: '',
         component: DashboardHome,
       },
-      {
-        path: 'users',
-        component: DashboardUsers,
-      },
+      { title: 'Utilisateurs', path: 'users', component: DashboardUsers },
     ],
   },
 ];

@@ -1,23 +1,27 @@
 import { Component, computed, inject, Signal, signal } from '@angular/core';
-import { SideMenu } from '../../../shared/components/side-menu/side-menu';
-import { Header } from '../../../shared/components/header/header';
-import { IMenuOption } from '../../../shared/components/side-menu/model/side-menu.interface';
-import { IHeaderOption } from '../../../shared/components/header/model/header.interface';
-import { AuthService } from '../../../core/auth/auth.service';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, startWith } from 'rxjs';
+
+import { AuthService } from '../../../core/auth/auth.service';
 import { APP_ROUTES } from '../../../core/routing/app-routes';
 
+import { Header } from '../../../shared/components/header/header';
+import { IHeaderOption } from '../../../shared/components/header/model/header.interface';
+import { SideMenu } from '../../../shared/components/side-menu/side-menu';
+import { IMenuOption } from '../../../shared/components/side-menu/model/side-menu.interface';
+
 @Component({
-  imports: [SideMenu, Header, RouterOutlet],
   selector: 'bc-dashboard-layout',
+  imports: [SideMenu, Header, RouterOutlet],
   templateUrl: './dashboard-layout.html',
 })
 export class DashboardLayout {
+  // Dependencies
   private readonly _authService = inject(AuthService);
   private readonly _router = inject(Router);
 
+  // Navigation state
   private readonly _currentUrl = toSignal(
     this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
@@ -27,7 +31,42 @@ export class DashboardLayout {
     { initialValue: this._router.url },
   );
 
-  protected menuOptions = signal<IMenuOption>({
+  // Derived navigation state
+  protected readonly _pageTitle = computed(() => {
+    this._currentUrl();
+
+    let route = this._router.routerState.snapshot.root;
+
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    return route.title ?? '';
+  });
+
+  protected readonly _breadcrumb = computed(() => {
+    this._currentUrl();
+
+    let route = this._router.routerState.snapshot.root;
+    const titles: string[] = [];
+
+    while (route) {
+      if (route.title && route.routeConfig?.path !== 'dashboard') {
+        titles.push(route.title);
+      }
+
+      if (!route.firstChild) {
+        break;
+      }
+
+      route = route.firstChild;
+    }
+
+    return titles;
+  });
+
+  // UI state
+  protected readonly menuOptions = signal<IMenuOption>({
     title: 'Brocount',
     buttons: [
       {
@@ -49,17 +88,26 @@ export class DashboardLayout {
     ],
   });
 
-  protected headerOptions = signal<IHeaderOption>({
-    title: 'Dashboard',
-    subtitle: 'Bienvenue sur votre Dashboard Brocount',
+  protected readonly headerOptions = computed<IHeaderOption>(() => ({
+    title: this._pageTitle(),
+    breadcrumb: this._breadcrumb(),
+    userEmail: 'thibault@gmail.com',
     buttons: [
       {
+        icon: 'notifications',
+        title: 'Notifications',
+        isButtonIcon: true,
+        action: () => {},
+      },
+      {
         icon: 'logout',
+        title: 'Déconnexion',
         action: () => this._logout(),
       },
     ],
-  });
+  }));
 
+  // Private methods
   private _logout(): void {
     this._authService.logout().subscribe({
       next: () => this._router.navigate([APP_ROUTES.LOGIN]),

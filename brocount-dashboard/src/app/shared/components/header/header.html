@@ -1,10 +1,21 @@
-<header class="w-full p-4 rounded-md bg-gray-900 flex justify-between items-center">
-  <div class="flex flex-col">
-    <span class="text-gray-50 text-xl">{{ headerOptions().title }}</span>
-    <span class="text-gray-400 text-sm">{{ headerOptions().subtitle }}</span>
+<header
+  class="h-20 w-full px-5 lg:px-8 flex justify-between items-center border-b border-gray-700 bg-gray-900/95 backdrop-blur"
+>
+  <div>
+    <div class="text-sm text-gray-400">
+      Administration
+      @for (title of headerOptions().breadcrumb; track $index) {
+        / <span class="text-gray-200">{{ title | titlecase }}</span>
+      }
+    </div>
+    <h1 class="mt-1 text-xl font-bold sm:text-2xl">{{ headerOptions().title | titlecase }}</h1>
   </div>
-  <div class="flex gap-4">
-    @for (button of headerOptions().buttons; track $index) {
+  <div class="flex items-center gap-3">
+    <div class="hidden text-right md:block">
+      <div class="text-sm font-semibold">Administrateur</div>
+      <div class="text-xs text-gray-400">{{ headerOptions().userEmail }}</div>
+    </div>
+    @for (button of headerOptions().buttons; track button.title) {
       <bc-header-button [headerButtonOption]="button"></bc-header-button>
     }
   </div>

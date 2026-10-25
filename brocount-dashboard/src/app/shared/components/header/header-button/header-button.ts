@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
 import { IHeaderButtonOption } from '../model/header-button.interface';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
-  imports: [],
+  imports: [TitleCasePipe],
   selector: 'bc-header-button',
   styleUrl: './header-button.css',
   templateUrl: './header-button.html',
