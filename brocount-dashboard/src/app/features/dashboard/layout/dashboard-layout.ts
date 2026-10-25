@@ -91,7 +91,7 @@ export class DashboardLayout {
   protected readonly headerOptions = computed<IHeaderOption>(() => ({
     title: this._pageTitle(),
     breadcrumb: this._breadcrumb(),
-    userEmail: 'thibault@gmail.com',
+    userEmail: this._authService.currentAdmin.value()?.email ?? '',
     buttons: [
       {
         icon: 'notifications',
