@@ -4,7 +4,7 @@
   type="button"
   class="flex items-center gap-2 rounded-xl border border-gray-700 px-3 py-2 text-sm font-semibold text-gray-200 hover:bg-gray-800 cursor-pointer"
 >
-  <span class="material-icons-outlined text-lg">{{ headerButtonOption().icon }}</span>
+  <span class="material-icons-outlined text-lg!">{{ headerButtonOption().icon }}</span>
   @if (!headerButtonOption().isButtonIcon) {
     <span class="hidden md:inline">{{ headerButtonOption().title | titlecase }}</span>
   }
