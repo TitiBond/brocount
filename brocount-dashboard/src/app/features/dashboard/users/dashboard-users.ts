@@ -2,9 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { IInfoCardOption } from '../../../shared/components/info-card/models/info-card-option.interface';
 import { InfoCard } from '../../../shared/components/info-card/info-card';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  imports: [InfoCard],
+  imports: [InfoCard, DatePipe],
   selector: 'bc-dashboard-users',
   templateUrl: './dashboard-users.html',
 })

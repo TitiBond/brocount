@@ -1,7 +1,9 @@
-import { UserRoleEnum } from "./user.role.enum";
+import { UserRoleEnum } from './user.role.enum';
 
-export interface IUser{
-    id: number,
-    email: string,
-    role: UserRoleEnum
+export interface IUser {
+  id: number;
+  email: string;
+  createdAt: Date;
+  lastLoginAt: Date | null;
+  role: UserRoleEnum;
 }

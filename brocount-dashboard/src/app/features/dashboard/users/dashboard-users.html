@@ -18,5 +18,8 @@
 </div>
 
 @for (user of userList(); track user.id) {
-  <span class="text-gray-50">{{ user.email }}</span>
+  <span class="text-gray-50"
+    >{{ user.email }} | {{ user.id }} | {{ user.role }} | {{ user.createdAt | date: 'd/M/yy' }} |
+    {{ user.lastLoginAt | date: 'd/M/yy' }}</span
+  >
 }
