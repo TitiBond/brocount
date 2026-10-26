@@ -8,6 +8,7 @@ import com.brocount.backend.entity.User;
 @Component
 public class UserMapper {
     public UserResponseDto toResponseDto(User user) {
-        return new UserResponseDto(user.getId(), user.getEmail(), user.getRole().getName().name());
+        return new UserResponseDto(user.getId(), user.getEmail(), user.getCreatedAt(), user.getLastLoginAt(),
+                user.getRole().getName().name());
     }
 }

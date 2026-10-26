@@ -1,4 +1,7 @@
+
 package com.brocount.backend.controller.admin;
+
+import java.util.Locale;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brocount.backend.dto.LoginDto;
+import com.brocount.backend.service.UserService;
 
 @RestController
 @RequestMapping("/admin/auth")
@@ -27,12 +31,15 @@ public class AdminAuthController {
 
     private final AuthenticationManager authenticationManager;
     private final SecurityContextRepository securityContextRepository;
+    private final UserService userService;
 
     public AdminAuthController(
             AuthenticationManager authenticationManager,
-            SecurityContextRepository securityContextRepository) {
+            SecurityContextRepository securityContextRepository,
+            UserService userService) {
         this.authenticationManager = authenticationManager;
         this.securityContextRepository = securityContextRepository;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
@@ -43,10 +50,12 @@ public class AdminAuthController {
 
         Authentication authentication;
 
+        String email = dto.email().trim().toLowerCase(Locale.ROOT);
+
         try {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            dto.email().trim().toLowerCase(java.util.Locale.ROOT),
+                            email,
                             dto.password()));
         } catch (AuthenticationException exception) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -58,6 +67,8 @@ public class AdminAuthController {
         if (!isAdmin) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+
+        userService.updateLastLoginAt(authentication.getName());
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);

@@ -1,5 +1,6 @@
 package com.brocount.backend.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,7 +47,10 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+        String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
+
+        return userRepository.findByEmail(normalizedEmail)
+                .orElseThrow(() -> new UserNotFoundException(normalizedEmail));
     }
 
     public User createUser(CreateUserDto dto) {
@@ -75,6 +79,12 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         userRepository.delete(user);
+    }
+
+    public void updateLastLoginAt(String email) {
+        User user = getUserByEmail(email);
+        user.setLastLoginAt(Instant.now());
+        userRepository.save(user);
     }
 
 }
