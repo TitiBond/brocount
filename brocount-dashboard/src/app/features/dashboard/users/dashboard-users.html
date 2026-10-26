@@ -4,7 +4,6 @@
     <p class="mt-2 text-sm text-gray-400">Consultez et gérez les utilisateurs de Brocount.</p>
   </div>
   <button
-    onclick="toast('Prototype : le bouton Ajouter sera connecté au backend plus tard.')"
     class="flex items-center justify-center gap-2 rounded-xl bg-lime-400 px-4 py-3 font-bold text-gray-900 shadow hover:bg-lime-300"
   >
     <span class="material-icons-outlined">person_add</span>Ajouter un utilisateur
@@ -12,7 +11,7 @@
 </div>
 
 <div class="mb-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-  @for (card of cards; track card.title) {
+  @for (card of cards(); track card.title) {
     <bc-info-card [infoCardOptions]="card"></bc-info-card>
   }
 </div>

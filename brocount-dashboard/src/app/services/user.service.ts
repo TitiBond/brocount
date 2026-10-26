@@ -1,4 +1,3 @@
-
 import { computed, inject, Injectable } from '@angular/core';
 
 import { UserApi } from '../data/apis/user.api';
@@ -9,18 +8,24 @@ import { UserApi } from '../data/apis/user.api';
 export class UserService {
   private readonly _userApi = inject(UserApi);
 
-  readonly users = computed(() =>
-    this._userApi.usersResource.value(),
-  );
+  // Données
+  readonly users = computed(() => this._userApi.usersResource.value());
+  readonly usersStats = computed(() => this._userApi.usersStatsResource.value());
 
-  protected readonly loading = this._userApi.usersResource.isLoading;
-  protected readonly error = this._userApi.usersResource.error;
+  // Chargement
+  readonly usersLoading = this._userApi.usersResource.isLoading;
+  readonly usersStatsLoading = this._userApi.usersStatsResource.isLoading;
+
+  // Erreurs
+  readonly usersError = this._userApi.usersResource.error;
+  readonly usersStatsError = this._userApi.usersStatsResource.error;
 
   public loadUsers(): void {
     this._userApi.loadUsers();
   }
 
-  protected reloadUsers(): void {
+  public reloadUsers(): void {
     this._userApi.usersResource.reload();
+    this._userApi.usersStatsResource.reload();
   }
 }

@@ -1,6 +1,7 @@
 package com.brocount.backend.service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.brocount.backend.dto.CreateUserDto;
+import com.brocount.backend.dto.UserStatResponseDto;
 import com.brocount.backend.entity.AppRole;
 import com.brocount.backend.entity.User;
 import com.brocount.backend.enums.AppRoleEnum;
@@ -87,4 +89,18 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public UserStatResponseDto getUserStats() {
+        long userCount = userRepository.count();
+        long adminCount = userRepository.countByRole_Name(AppRoleEnum.ADMIN);
+        long moderatorCount = userRepository.countByRole_Name(AppRoleEnum.MODERATOR);
+
+        Instant thirtyDaysAgo = Instant.now().minus(30, ChronoUnit.DAYS);
+        long activeUsers = userRepository.countByLastLoginAtGreaterThanEqual(thirtyDaysAgo);
+
+        return new UserStatResponseDto(
+                userCount,
+                adminCount,
+                activeUsers,
+                moderatorCount);
+    }
 }

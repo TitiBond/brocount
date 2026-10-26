@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brocount.backend.dto.UserResponseDto;
+import com.brocount.backend.dto.UserStatResponseDto;
 import com.brocount.backend.entity.User;
 import com.brocount.backend.mapper.UserMapper;
 import com.brocount.backend.service.UserService;
@@ -32,6 +33,11 @@ public class AdminUserController {
     public List<UserResponseDto> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return users.stream().map(userMapper::toResponseDto).toList();
+    }
+
+    @GetMapping("/stats")
+    public UserStatResponseDto getUserStats() {
+        return userService.getUserStats();
     }
 
     @GetMapping("/{id}")
