@@ -1,0 +1,9 @@
+<label class="relative block"
+  ><span class="material-icons-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">{{
+    inputOption().icon
+  }}</span
+  ><input
+    (input)="onChangeEvent($event)"
+    [placeholder]="inputOption().placeholder"
+    class="w-full rounded-xl border border-gray-700 bg-gray-900 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-gray-500 focus:border-lime-400 sm:w-72"
+/></label>
