@@ -1,0 +1,17 @@
+<button
+  (click)="buttonOption().action()"
+  title="Modifier"
+  class="rounded-lg px-3 py-2 font-semibold text-gray-900 bg-lime"
+  [class.bg-lime-400]="buttonOption().color == 'primary'"
+  [class.hover:bg-lime-300]="buttonOption().color == 'primary'"
+  [class.border-red-900]="buttonOption().color == 'danger'"
+  [class.bg-red-950]="buttonOption().color == 'danger'"
+  [class.hover:bg-red-900]="buttonOption().color == 'danger'"
+  [class.text-red-300]="buttonOption().color == 'danger'"
+  [class.border]="buttonOption().isIcon"
+>
+  <span class="material-icons-outlined align-middle text-lg">{{ buttonOption().icon }}</span>
+  @if (!buttonOption().isIcon) {
+    <span class="ml-1">{{ buttonOption().label }}</span>
+  }
+</button>
