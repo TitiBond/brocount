@@ -1,11 +1,16 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { IInfoCardOption } from '../../../shared/components/info-card/models/info-card-option.interface';
 import { InfoCard } from '../../../shared/components/info-card/info-card';
-import { DatePipe } from '@angular/common';
+import { UsersTable } from './users-table/users-table';
+import { IUser } from '../../../models/user.interface';
+import { UserRoleEnum } from '../../../models/user.role.enum';
+import { Input } from '../../../shared/components/input/input';
+
+type UserRoleFilter = UserRoleEnum | '';
 
 @Component({
-  imports: [InfoCard, DatePipe],
+  imports: [InfoCard, UsersTable, Input],
   selector: 'bc-dashboard-users',
   templateUrl: './dashboard-users.html',
 })
@@ -14,10 +19,25 @@ export class DashboardUsers implements OnInit {
 
   protected readonly userList = this._userService.users;
   protected readonly usersStats = this._userService.usersStats;
+  protected readonly selectedRole = signal<UserRoleFilter>('');
+  private readonly _inputValue = signal<string>('');
 
   ngOnInit(): void {
     this._userService.loadUsers();
   }
+
+  protected readonly filteredUsers = computed(() => {
+    const users = (this.userList() ?? [])
+      .sort((a, b) => a.id - b.id)
+      .filter((u) => u.email.includes(this._inputValue()));
+    const role = this.selectedRole();
+
+    if (!role) {
+      return users;
+    }
+
+    return users.filter((user) => user.role === role);
+  });
 
   protected readonly cards = computed<IInfoCardOption[]>(() => {
     const stats = this.usersStats();
@@ -49,4 +69,20 @@ export class DashboardUsers implements OnInit {
       },
     ];
   });
+
+  public onEditUser(user: IUser): void {
+    console.log('user a edit : ', user);
+  }
+  public onDeleteUser(user: IUser): void {
+    console.log('user a delete : ', user);
+  }
+
+  protected onSelectRole(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedRole.set(select.value as UserRoleFilter);
+  }
+
+  protected onInputChange(value: string): void {
+    this._inputValue.set(value);
+  }
 }
