@@ -5,9 +5,10 @@ import { CustomDatePipe } from '../../../../../shared/pipes/custom-date.pipe';
 import { IBadgeOption } from '../../../../../shared/components/badge/models/badge.interface';
 import { Button } from '../../../../../shared/components/button/button';
 import { IButtonOption } from '../../../../../shared/components/button/models/button-option.interface';
+import { UserBadge } from './user-badge/user-badge';
 
 @Component({
-  imports: [Badge, CustomDatePipe, Button],
+  imports: [Badge, CustomDatePipe, Button, UserBadge],
   selector: 'tr[bc-user-row]',
   templateUrl: './user-row.html',
 })
