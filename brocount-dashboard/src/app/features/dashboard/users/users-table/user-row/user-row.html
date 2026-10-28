@@ -1,0 +1,24 @@
+<td class="px-5 py-4">
+  <div class="flex items-center gap-3">
+    <div
+      class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gray-700 font-bold text-gray-200"
+    >
+      TC
+    </div>
+    <div>
+      <div class="font-semibold text-gray-100">{{ user().email }}</div>
+      <div class="mt-1 text-xs text-gray-500">ID #{{ user().id }}</div>
+    </div>
+  </div>
+</td>
+<td class="px-5 py-4">
+  <bc-badge [badgeOption]="badgeOption()"></bc-badge>
+</td>
+<td class="px-5 py-4 text-gray-300">{{ user().createdAt | customDate }}</td>
+<td class="px-5 py-4 text-gray-300">{{ user().lastLoginAt | customDate }}</td>
+<td class="px-5 py-4">
+  <div class="flex justify-end gap-2">
+    <bc-button [buttonOption]="editButtonOption"></bc-button>
+    <bc-button [buttonOption]="deletetButtonOption"></bc-button>
+  </div>
+</td>

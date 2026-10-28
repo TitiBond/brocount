@@ -1,0 +1,22 @@
+<table class="w-full min-w-200 text-left text-sm">
+  <thead class="bg-gray-900/70 text-xs uppercase tracking-wider text-gray-400">
+    <tr>
+      <th class="px-5 py-4 font-semibold">Utilisateur</th>
+      <th class="px-5 py-4 font-semibold">Rôle</th>
+      <th class="px-5 py-4 font-semibold">Création du compte</th>
+      <th class="px-5 py-4 font-semibold">Dernière connexion</th>
+      <th class="px-5 py-4 text-right font-semibold">Actions</th>
+    </tr>
+  </thead>
+  <tbody id="users-body" class="divide-y divide-gray-700">
+    @for (user of users(); track user.id) {
+      <tr
+        [user]="user"
+        bc-user-row
+        class="hover:bg-gray-700/40"
+        (edit)="onEditUser.emit($event)"
+        (delete)="onDeleteUser.emit($event)"
+      ></tr>
+    }
+  </tbody>
+</table>
